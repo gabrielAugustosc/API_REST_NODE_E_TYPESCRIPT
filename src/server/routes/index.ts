@@ -1,18 +1,17 @@
-import { Router } from "express";
-import { StatusCodes } from "http-status-codes";
+import { Router } from 'express';
 
+import { CidadesController } from './../controllers';  
 
 const router = Router();
-
 
 router.get("/teste", (req, res) => {
   return res.send("Hello, Dev!");
 });
 
-router.post("/teste", (req, res) => {
-  console.log(req.body);
-  return res.status(StatusCodes.UNAUTHORIZED).send(req.body);
-});
-
+router.post("/cidades", CidadesController.createValidation, CidadesController.create);
+router.get("/cidades", CidadesController.getAllValidation, CidadesController.getAll);
+router.get("/cidades/:id", CidadesController.getByIdValidation, CidadesController.getById);
+router.put("/cidades/:id", CidadesController.updateByIdValidation, CidadesController.updateById);
+router.delete("/cidades/:id", CidadesController.deleteByIdValidation, CidadesController.deleteById);
 
 export { router };
