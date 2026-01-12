@@ -4,6 +4,8 @@ import * as yup from 'yup';
 
 
 import { validation } from '../../shared/middleware';
+import { ICidade } from '../../database/models/Index';
+import { CidadesProvider } from '../../database/providers/cidades';
 
 
 
@@ -25,7 +27,7 @@ export const updateByIdValidation = validation(getSchema => ({
   })),
 }));
 
-export const updateById = async (req: Request<IParamProps, {}, IBodyProps>, res: Response) => {
+export const updateById = async (req: Request<IParamProps, any, IBodyProps>, res: Response) => {
   if (!req.params.id) {
     return res.status(StatusCodes.BAD_REQUEST).json({
       errors: {
@@ -34,7 +36,15 @@ export const updateById = async (req: Request<IParamProps, {}, IBodyProps>, res:
     });
   }
 
+  const result = await CidadesProvider.updateById(req.params.id, req.body);
   
+  if (result instanceof Error) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      errors: {
+        default: result.message,
+      }
+    });
+  }
 
-  return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Não implementado");
+  return res.status(StatusCodes.NO_CONTENT).send();
 };

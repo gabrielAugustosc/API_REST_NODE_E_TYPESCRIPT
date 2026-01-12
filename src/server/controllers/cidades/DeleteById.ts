@@ -2,8 +2,9 @@ import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import * as yup from 'yup';
 
-// import { CidadesProvider } from '../../database/providers/cidades';
+
 import { validation } from '../../shared/middleware';
+import { CidadesProvider } from '../../database/providers/cidades';
 
 
 export interface IParamProps {
@@ -16,9 +17,22 @@ export const deleteByIdValidation = validation(getSchema => ({
 }));
 
 export const deleteById = async (req: Request<IParamProps>, res: Response) => {
-
-  console.log(req.params);
- 
-
-  return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Não implementado");
+  if (!req.params.id) {
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      errors: {
+        default: "ID da cidade é obrigatório",
+      }
+    });
+  }
+  
+  const result = await CidadesProvider.deleteById(req.params.id);
+  
+  if (result instanceof Error) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      errors: {
+        default: result.message,
+      }
+    });
+  }
+  return res.status(StatusCodes.NO_CONTENT).send();
 };

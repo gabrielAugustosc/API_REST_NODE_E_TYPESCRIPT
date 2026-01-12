@@ -12,7 +12,7 @@ describe("Criar uma nova cidade", () => {
            
 
         expect(res1.status).toEqual(StatusCodes.CREATED);
-        expect(typeof res1.body).toEqual("numvber");
+        expect(typeof res1.body).toEqual("number");
     
     });
     it("Não pode criar registro com nome muito curto", async () => {
