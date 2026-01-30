@@ -5,7 +5,7 @@ import * as yup from 'yup';
 
 import { validation } from '../../shared/middleware';
 import { ICidade } from '../../database/models/Index';
-import { CidadesProvider } from '../../database/providers/cidades';
+import { CidadesProvider } from '../../database/providers/cidades/Index';
 
 
 

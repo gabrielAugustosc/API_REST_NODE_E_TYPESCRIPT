@@ -4,7 +4,7 @@ import { StatusCodes } from "http-status-codes";
 
 import { validation } from "../../shared/middleware";
 import { ICidade } from "../../database/models/Cidade";
-import { CidadesProvider } from "../../database/providers/cidades";
+import { CidadesProvider } from "../../database/providers/cidades/Index";
 
 
 export interface IBodyProps extends Omit<ICidade, 'id'> {

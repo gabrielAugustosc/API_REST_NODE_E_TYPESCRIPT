@@ -3,7 +3,7 @@ import * as yup from "yup";
 
 import { validation } from "../../shared/middleware";
 import { StatusCodes } from "http-status-codes";
-import { CidadesProvider } from "../../database/providers/cidades";
+import { CidadesProvider } from "../../database/providers/cidades/Index";
 
 
 export interface IQueryProps {

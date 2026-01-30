@@ -4,7 +4,7 @@ import * as yup from 'yup';
 
 
 import { validation } from '../../shared/middleware';
-import { CidadesProvider } from '../../database/providers/cidades';
+import { CidadesProvider } from '../../database/providers/cidades/Index';
 
 
 export interface IParamProps {
