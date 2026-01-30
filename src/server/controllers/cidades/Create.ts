@@ -13,8 +13,8 @@ export interface IBodyProps extends Omit<ICidade, 'id'> {
 
 export const createValidation = validation((getSchema) => ({
   body: getSchema<IBodyProps>(yup.object().shape({
-  nome: yup.string().required().min(3).max(150),
-})),
+    nome: yup.string().required().min(3).max(150),
+  })),
 }));
 
 
@@ -24,7 +24,7 @@ export const create = async (req: Request<Record<string, never>, any, ICidade>, 
   if (result instanceof Error) {
     return res.status(StatusCodes.BAD_REQUEST).json({
       errors: {
-      default: result.message,
+        default: result.message,
       }
     });
   }

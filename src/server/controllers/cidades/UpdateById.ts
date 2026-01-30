@@ -37,7 +37,7 @@ export const updateById = async (req: Request<IParamProps, any, IBodyProps>, res
   }
 
   const result = await CidadesProvider.updateById(req.params.id, req.body);
-  
+
   if (result instanceof Error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       errors: {
