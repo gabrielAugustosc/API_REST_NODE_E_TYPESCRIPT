@@ -21,3 +21,6 @@ export const serverReady = Knex.migrate.latest()
         console.error('Erro ao executar migrations:', err);
         throw err;
     });
+
+// Exporta também o server para uso local (ex: src/index.ts)
+export { server };
