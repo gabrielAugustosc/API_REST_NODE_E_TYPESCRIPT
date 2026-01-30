@@ -8,16 +8,16 @@ import { Knex } from './database/knex';
 
 const server = express();
 
-// Executa as migrations automaticamente ao iniciar
-Knex.migrate.latest()
-    .then(() => {
-        console.log('Migrations executadas com sucesso!');
-    })
-    .catch((err) => {
-        console.error('Erro ao executar migrations:', err);
-    });
-
 server.use(express.json());
 server.use(router);
 
-export { server };
+// Exporta uma promise que garante que as migrations rodaram
+export const serverReady = Knex.migrate.latest()
+    .then(() => {
+        console.log('Migrations executadas com sucesso!');
+        return server;
+    })
+    .catch((err) => {
+        console.error('Erro ao executar migrations:', err);
+        throw err;
+    });
