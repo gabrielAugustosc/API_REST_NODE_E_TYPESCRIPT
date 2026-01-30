@@ -35,4 +35,11 @@ export const production: Knex.Config = {
     connection: {
         filename: '/tmp/database.sqlite',
     },
+    pool: {
+        min: 1,
+        max: 1,
+        afterCreate: (connection: any, done: any) => {
+            connection.run('PRAGMA foreign_keys = ON', done);
+        },
+    },
 };
