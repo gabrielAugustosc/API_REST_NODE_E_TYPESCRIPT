@@ -12,8 +12,15 @@ server.listen(process.env.PORT || 3333, () => {
 
 
 if (process.env.IS_LOCALHOST !== 'true') {
-Knex.migrate.latest().then(() => {
-    startServer();
+    console.log("Rodando migration");
+
+
+    Knex.migrate
+    .latest()
+    .then(() => {
+        Knex.seed.run()
+        .then(() => startServer())
+        .catch(console.log);
 })
 .catch(console.log);
 }else {
