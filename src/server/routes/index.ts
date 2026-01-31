@@ -2,7 +2,13 @@ import { Router } from 'express';
 
 import { CidadesController } from './../controllers';  
 
+
 const router = Router();
+
+// Rota raiz para evitar erro 404 em /
+router.get('/', (req, res) => {
+  res.send('API está funcionando!');
+});
 
 router.get("/teste", (req, res) => {
   return res.send("Hello, Dev!");
