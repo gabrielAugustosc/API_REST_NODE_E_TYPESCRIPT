@@ -9,9 +9,8 @@ import { ETableNames } from "../ETableNames";
 
 
 export const seed = async (knex: Knex) => {
-    // Limpa a tabela e reseta o autoincremento
-    await knex(ETableNames.CIDADE).del();
-    await knex.raw("DELETE FROM sqlite_sequence WHERE name = 'cidade'");
+   const [{ count }] = await knex(ETableNames.CIDADE).count<[{count: number}]>('* as count');
+   if(!Number.isInteger(count) || Number(count) > 0) return;
 
     const cidadesToInsert = cidadesSP.map((nomeDaCidade) => ({ nome: nomeDaCidade }));
     await knex(ETableNames.CIDADE).insert(cidadesToInsert);
