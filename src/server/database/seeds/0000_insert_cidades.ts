@@ -3,14 +3,10 @@ import { ETableNames } from "../ETableNames";
 
 
 
-
-
-
-
-
 export const seed = async (knex: Knex) => {
-   const [{ count }] = await knex(ETableNames.CIDADE).count<[{count: number}]>('* as count');
-   if(!Number.isInteger(count) || Number(count) > 0) return;
+    const result = await knex(ETableNames.CIDADE).count('* as count');
+    const count = Number((result[0] as any).count);
+    if (count > 0) return;
 
     const cidadesToInsert = cidadesSP.map((nomeDaCidade) => ({ nome: nomeDaCidade }));
     await knex(ETableNames.CIDADE).insert(cidadesToInsert);
